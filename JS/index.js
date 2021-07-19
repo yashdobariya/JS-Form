@@ -1,12 +1,15 @@
 let selectedRow = null;
-var hobbies = []
+
 
 const OnSubmit = (event) => {
     event.preventDefault();
     let formData1;
-    console.log(hobbies.length);
+    // console.log(hobbies.length);
     // debugger
-    if (document.getElementById("fname").value === "" || document.getElementById("lname").value === "" || document.querySelector('input[type="radio"]:checked') === null ||  if(((!document.getElementById("cricket").checked) && (!document.getElementById("music").checked) && (!document.getElementById("gyming").checked){ document.getElementById("hobbie").innerHTML = "Please fill the field"; } || document.getElementById("address").value === '' ) {
+    if (document.getElementById("fname").value === "" || document.getElementById("lname").value === "" || document.querySelector('input[type="radio"]:checked') === null || document.getElementById("address").value === '' ||
+         ((!document.getElementById("cricket").checked) && (!document.getElementById("music").checked) && (!document.getElementById("gyming").checked)))
+        
+    {
         console.log(document.getElementById("lname").value === '');
         validateData();
     } else {
@@ -32,9 +35,12 @@ const readFormData = () => {
     formData["lastname"] = document.getElementById("lname").value;
     formData["gender"] = document.querySelector('input[type="radio"]:checked').value;
     let hoby = document.getElementsByClassName('check');
+    var hobbies = []
     // console.log(hobbies, "h")
+
     for (let i = 0; i < hoby.length; i++){
         if (document.getElementById(hoby[i].id).checked) {
+
             hobbies.push(document.getElementById(hoby[i].id).value)
         }
     }
@@ -122,9 +128,11 @@ const validateData = () => {
         document.getElementById("gender").innerHTML = "Please fill the field";
         
     }
-    console.log(hobbies.length);
-    if (hobbies.length === 0) {
-        console.log(hobbies,"hoby")
+    // console.log(hobbies.length);
+    if ((!document.getElementById("cricket").checked) && (!document.getElementById("music").checked) && (!document.getElementById("gyming").checked)) {
+        // console.log(hobbies, "hoby")
+        document.getElementById("hobbie").innerHTML = "Please fill the field";
+ 
         
     }
     var Addr = document.getElementById("address").value;
