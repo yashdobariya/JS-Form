@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/responsive.css">
+    <title>Js Form</title>
+</head>
+
+<body>
+    <main>
+
+        <section class="form-section">
+            <div class="form-wrap">
+                <form id="basic-form" onsubmit="OnSubmit(event)" class="basic-form" autocomplete="off">
+                    <h1 class="text-left">Basic Form</h1>
+
+                    <div class="form-item">
+                        <label for="fname">First Name:</label>
+                        <input type="text" class="input_item" name="fname" id="fname"
+                            placeholder="Enter your first name" />
+                        <span class="error" id="firstname"> </span>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="lname">Last Name:</label>
+                        <input type="text" class="input_item" name="lname" id="lname"
+                            placeholder="Enter your last name" />
+                        <span class="error" id="lastname"> </span>
+                    </div>
+
+                    <div class="form-item">
+                        <label>Gender</label>
+                        <label><input type="radio" class="input_box gen" name="gender" id="male" value="male" />
+                            Male</label>
+
+                        <label><input type="radio" class="input_box gen" name="gender" id="female" value="female" />
+                            Female</label>
+                        <span id="gender" class="error left"> </span>
+                    </div>
+
+                    <div class="form-item">
+                        <label>Hobbie</label>
+                        <label><input type="checkbox" name="music" id="music" na class="input_box check"
+                                value="music" />
+                            Music</label>
+
+                        <label><input class="input_box check" name="cricket" type="checkbox" id="cricket"
+                                value="cricket" />
+                            Cricket</label>
+
+                        <label><input class="input_box check" name="gyming" type="checkbox" id="gyming"
+                                value="gyming" />
+                            Gyming</label>
+                        <span id="hobbie" class="error left"> </span>
+                    </div>
+
+                    <div class="form-item">
+                        <label style="vertical-align: top;margin-right: 20px;">Address</label>
+                        <textarea rows="4" cols="30" class="input_item" name="address" id="address"
+                            placeholder="Enter Address here..."></textarea>
+                        <span id="message" class="error"> </span>
+                    </div>
+
+                    <div class="form-item">
+                        <button type="submit" value="Submit" class="btn">Submit</button>
+                        <button type="submit" onclick="resetForm()" value="Reset" class="btn1">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="table-section">
+            <div class="table-wrap">
+                <table class="form-table" id="basic-form-list">
+                    <caption> Basic Form Table</caption>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Hobbie</th>
+                        <th>Address</th>
+                        <th>Update</th>
+                    </tr>
+
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+<script src="./JS/index.js"></script>
+
+</html>
