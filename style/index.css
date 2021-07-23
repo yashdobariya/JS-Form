@@ -92,4 +92,9 @@ td {
 
 .error {
   color: red;
+  visibility: hidden;
+}
+
+.showError {
+  visibility: unset !important;
 }

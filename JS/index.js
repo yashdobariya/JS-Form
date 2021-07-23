@@ -3,6 +3,7 @@ let isEdit = false;
 
 const onSubmit = (event) => {
     event.preventDefault();
+    console.log(getformData,"grt")
     if (document.getElementById("fname").value === "" || document.getElementById("lname").value === "" || document.querySelector('input[type="radio"]:checked') === null || document.getElementById("address").value === '' ||
     ((!document.getElementById("cricket").checked) && (!document.getElementById("music").checked) && (!document.getElementById("gyming").checked)))
     {
@@ -23,10 +24,6 @@ const resetForm = () => {
 }
 
 const readFormData = () => {
-    const formData = {};
-    formData["firstname"] = document.getElementById("fname").value;
-    formData["lastname"] = document.getElementById("lname").value;
-    formData["gender"] = document.querySelector('input[type="radio"]:checked').value;
     let hoby = document.getElementsByClassName('check');
     var hobbies = []
     for (let i = 0; i < hoby.length; i++){
@@ -34,49 +31,55 @@ const readFormData = () => {
             hobbies.push(document.getElementById(hoby[i].id).value)
         }
     }
-    formData["hobbie"] = hobbies.toString();
-    formData["address"] = document.getElementById("address").value;
+    const formData = {
+        firstname: document.getElementById("fname").value,
+        lastname: document.getElementById("lname").value,
+        gender: document.querySelector('input[type="radio"]:checked').value,
+        hobbie: hobbies.toString(),
+        address: document.getElementById("address").value,
+    };
     return formData;
 }
 
 let insertNewRecord = (data) => {
     let table = document.getElementById("basic-form-list").getElementsByTagName("tbody")[0]
     let newRow = table.insertRow(table.length);
-    firstnamecell = newRow.insertCell(0);
-    firstnamecell.innerHTML = data.firstname;
-    lastnamecell = newRow.insertCell(1);
-    lastnamecell.innerHTML = data.lastname;
-    gendercell = newRow.insertCell(2);
-    gendercell.innerHTML = data.gender;
-    hobbiecell = newRow.insertCell(3);
-    hobbiecell.innerHTML = data.hobbie;
-    addresscell = newRow.insertCell(4);
-    addresscell.innerHTML = data.address;
-    updatecell = newRow.insertCell(5);
-    updatecell.innerHTML = `<button onClick="onEdit(this)" class="btn" href="">Edit</button><button onClick="onDelete(this)"class="btn1" href="">Delete</button>`;
+    let firstnamecell = newRow.insertCell(0);
+        firstnamecell.innerHTML = data.firstname;
+    let lastnamecell = newRow.insertCell(1);
+        lastnamecell.innerHTML = data.lastname;
+    let gendercell = newRow.insertCell(2);
+        gendercell.innerHTML = data.gender;
+    let hobbiecell = newRow.insertCell(3);
+        hobbiecell.innerHTML = data.hobbie;
+    let addresscell = newRow.insertCell(4);
+        addresscell.innerHTML = data.address;
+    let updatecell = newRow.insertCell(5);
+        updatecell.innerHTML = `<button onClick="onEdit(this)" class="btn" href="">Edit</button><button onClick="onDelete(this)"class="btn1" href="">Delete</button>`;
 }
 
 let onEdit = (td) => {
     isEdit = true;
     selectedRow = td.parentElement.parentElement;
-    console.log(getformData, "fomdata");
-    document.getElementById("fname").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("lname").value = selectedRow.cells[1].innerHTML;
-    let gender_item = (selectedRow.cells[2].innerHTML)
+    let cell = selectedRow.cells
+    document.getElementById("fname").value = cell[0].innerHTML;
+    document.getElementById("lname").value = cell[1].innerHTML;
+    let gender_item = (cell[2].innerHTML)
     document.getElementById(gender_item).checked = true
-    let hoby_item =(selectedRow.cells[3].innerHTML.split(','))
+    let hoby_item =(cell[3].innerHTML.split(','))
     for (i = 0; i < hoby_item.length; i++){
-            document.getElementById(hoby_item[i]).checked = true;
-                    }
+        document.getElementById(hoby_item[i]).checked = true;
+    }
     document.getElementById("address").value = selectedRow.cells[4].innerHTML;
 }
 
 let editRecords = (getformdata) => {
-    selectedRow.cells[0].innerHTML = getformdata.firstname;
-    selectedRow.cells[1].innerHTML = getformdata.lastname;
-    selectedRow.cells[2].innerHTML = getformdata.gender;
-    selectedRow.cells[3].innerHTML = getformdata.hobbie;
-    selectedRow.cells[4].innerHTML = getformdata.address;
+    const cells= selectedRow.cells
+    cells[0].innerHTML = getformdata.firstname;
+    cells[1].innerHTML = getformdata.lastname;
+    cells[2].innerHTML = getformdata.gender;
+    cells[3].innerHTML = getformdata.hobbie;
+    cells[4].innerHTML = getformdata.address;
     isEdit = false;
 }
 
@@ -85,51 +88,45 @@ let onDelete = (td) =>{
     document.getElementById("basic-form-list").deleteRow(row.rowIndex);
 }
 
+
 const validateData = (event) => {
     event.preventDefault();
     if (document.getElementById("fname").value == "") {
-        document.getElementById("firstname").innerHTML = "Please fill the field";
+        document.getElementById("firstname").classList.add("showError");
     }
     if (document.getElementById("lname").value == "") {
-        document.getElementById("lastname").innerHTML = "Please fill the field";
+        document.getElementById("lastname").classList.add("showError");
     }
     if (document.querySelector('input[type="radio"]:checked') == null) {
-        document.getElementById("gender").innerHTML = "Please fill the field";
+        document.getElementById("gender").classList.add("showError");
     }
     if ((!document.getElementById("cricket").checked) && (!document.getElementById("music").checked) && (!document.getElementById("gyming").checked)) {
-        document.getElementById("hobbie").innerHTML = "Please fill the field";
+        document.getElementById("hobbie").classList.add("showError");
     }
     if (document.getElementById("address").value == "") {
-        document.getElementById("message").innerHTML = "Please fill the field";
+        document.getElementById("message").classList.add("showError");
     }
 }
 
 const changeInput = (event) => {
     let inputElement = event.target;
-
+    let id= ''
     if (inputElement.name === 'fname') {
-        if (inputElement.value != "") {
-            document.getElementById("firstname").innerHTML = "";
-        }
+        id = 'firstname'
     }
-    if (inputElement.name === 'lname') {
-        if (inputElement.value != "") {
-            document.getElementById("lastname").innerHTML = "";
-        }
+    else if (inputElement.name === 'lname') {
+        id= 'lastname'
     }
-    if (inputElement.name === 'gender') {
-        if (inputElement.value != "") {
-            document.getElementById("gender").innerHTML = "";
-        }
+    else if (inputElement.name === 'gender') {
+        id = "gender"
     }
-    if (inputElement.name === 'hoby') {
-        if (inputElement.value != "") {
-            document.getElementById("hobbie").innerHTML = "";
-        }
+    else if (inputElement.name === 'hoby') {
+        id= 'hobbie'
     }
-    if (inputElement.name === 'address') {
-        if (inputElement.value != "") {
-            document.getElementById("message").innerHTML = "";
-        }
+    else  if (inputElement.name === 'address') {
+    id = "message"
+    }
+    if (inputElement.value != "") {
+        document.getElementById(id).classList.remove("showError");
     }
 }
