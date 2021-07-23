@@ -20,42 +20,42 @@
 
                     <div class="form-item">
                         <label for="fname">First Name:</label>
-                        <input type="text" class="input_item" name="fname" onchange="changeInput(event)" id="fname"
+                        <input type="text" class="input_item" name="fname" oninput="changeInput(event)" id="fname"
                             placeholder="Enter your first name" />
                         <p class="error left" id="firstname"> Please fill the field</p>
                     </div>
 
                     <div class="form-item">
                         <label for="lname">Last Name:</label>
-                        <input type="text" class="input_item" name="lname" id="lname" onchange="changeInput(event)"
+                        <input type="text" class="input_item" name="lname" id="lname" oninput="changeInput(event)"
                             placeholder="Enter your last name" />
                         <p class="error left" id="lastname">Please fill the field </p>
                     </div>
 
                     <div class="form-item" name="ceh">
                         <label>Gender</label>
-                        <label><input type="radio" class="input_box gen" onchange="changeInput(event)" name="gender"
+                        <label><input type="radio" class="input_box gen" oninput="changeInput(event)" name="gender"
                                 id="male" value="male" />
                             Male</label>
 
                         <label><input type="radio" class="input_box gen" name="gender" id="female"
-                                onchange="changeInput(event)" value="female" />
+                                oninput="changeInput(event)" value="female" />
                             Female</label>
-                        <p id="gender" class="error left">Please fill the field </p>
+                        <p id="gendervalidate" class="error left">Please fill the field </p>
                     </div>
 
                     <div class="form-item">
                         <label>Hobbie</label>
                         <label><input type="checkbox" name="hoby" id="music" na class="input_box check"
-                                onchange="changeInput(event)" value="music" />
+                                oninput="changeInput(event)" value="music" />
                             Music</label>
 
                         <label><input class="input_box check" name="hoby" type="checkbox" id="cricket"
-                                onchange="changeInput(event)" value="cricket" />
+                                oninput="changeInput(event)" value="cricket" />
                             Cricket</label>
 
                         <label><input class="input_box check" name="hoby" type="checkbox" id="gyming"
-                                onchange="changeInput(event)" value="gyming" />
+                                oninput="changeInput(event)" value="gyming" />
                             Gyming</label>
                         <p id="hobbie" class="error left"> Please fill the field </p>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="form-item">
                         <label style="vertical-align: top;margin-right: 20px;">Address</label>
                         <textarea rows="4" cols="30" class="input_item" name="address" id="address"
-                            onchange="changeInput(event)" placeholder="Enter Address here..."></textarea>
+                            oninput="changeInput(event)" placeholder="Enter Address here..."></textarea>
                         <p id="message" class="left error"> Please fill the field </p>
                     </div>
 
@@ -80,6 +80,7 @@
                 <table class="form-table" id="basic-form-list">
                     <caption> Basic Form Table</caption>
                     <tr>
+                        <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Gender</th>
