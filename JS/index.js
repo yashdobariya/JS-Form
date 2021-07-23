@@ -1,5 +1,5 @@
 // let getFormDetails = JSON.parse(localStorage.getItem("detail"));
-// let isEdit = false;
+let isEdit = false;
 
 // let ids = 0;
 let insertRecordsIntoLocalStorage = []
@@ -45,32 +45,21 @@ const onSubmit = (event) => {
     console.log(getformData);
     const isValidated = validateData(getformData)
     if (isValidated) {
-        insertData(getformData);
-        // onLoad();
-        // let localStorageData = displayLocalStorageData();
-        // displayDataintoTable();
-        // storeRecordsIntoLocalStorage();
-        event.target.reset(); 
+        if (!isEdit) {
+            insertData(getformData);
+        } else {
+            console.log(getformData,"getformData 1");
+            editRecords(getformData);
+        }
+        event.target.reset();
+        window.location.reload(true);
     }
-    // event.preventDefault();
-    // const getformData = readFormData();
-    // console.log(getformData, "data");
-    // const isValidated = validateData(getformData)
-    // if (isValidated) {
-    //     if (!isEdit) {
-    //         // displayLocalStorageData(getformData);
-    //         insertRecord()
-    //     } else {
-    //         editRecords(getformData);
-    //     }
-    //     event.target.reset(); 
-    // }
 }
 
 
-// const resetForm = () => {
-//     document.getElementById("basic-form").reset();
-// }
+const resetForm = () => {
+    document.getElementById("basic-form").reset();
+}
 
 
 const readFormData = () => {
@@ -136,12 +125,143 @@ let displayDataintoTable = (fromDataOfLocalStorage) => {
         let addresscell = newRow.insertCell(5);
         addresscell.innerHTML = fromDataOfLocalStorage.address
         let updatecell = newRow.insertCell(6);
-        updatecell.innerHTML = `<button onClick="onEdit(this)" class="btn" href="">Edit</button><button onClick="onDelete(this)"class="btn1" href="">Delete</button>`;
+        updatecell.innerHTML = `<button onClick="onEdit(this,${fromDataOfLocalStorage.id})" class="btn" href="">Edit</button><button onClick="onDelete(this,${fromDataOfLocalStorage.id})"class="btn1" href="">Delete</button>`;
 }
 
 
-// let  insertRecordIntoTable = () => {
+let id0FEditRow;
+
+let onEdit = (td, id) => {
+    isEdit = true;
+    id0FEditRow = id;
+    console.log(id0FEditRow, "id of cell");
+    selectedRow = td.parentElement.parentElement;
+    let cell = selectedRow.cells
+    document.getElementById("fname").value = cell[1].innerHTML;
+    if (!cell[1].innerHTML == "") {
+        errorRemove("firstname")
+    } 
+    document.getElementById("lname").value = cell[2].innerHTML;
+    if (!cell[2].innerHTML == "") {
+        errorRemove("lastname")
+    } 
+    let gender_item = (cell[3].innerHTML)
+    document.getElementById(gender_item).checked = true
+    if (!cell[3].innerHTML == "") {
+        errorRemove("gendervalidate")
+    } 
+    let hoby_item =(cell[4].innerHTML.split(','))
+    for (i = 0; i < hoby_item.length; i++){
+        document.getElementById(hoby_item[i]).checked = true;
+    }
+    if (!cell[4].innerHTML == "") {
+        errorRemove("hobbie")
+    } 
+    document.getElementById("address").value = selectedRow.cells[5].innerHTML;
+    if (!cell[5].innerHTML == "") {
+        errorRemove("message")
+    } 
+}
+
+
+const errorRemove = (id) => {
+    document.getElementById(id).classList.remove("showError")
+}
+
+
+let editRecords = (formData) => {
+
+    let getDataOfLocalStorage = JSON.parse(localStorage.getItem("detail"));
+    let index = getDataOfLocalStorage.findIndex(matchId => matchId.id == id0FEditRow);
+    const currentId = getDataOfLocalStorage[index].id;
+    getDataOfLocalStorage[index] = formData;
+    getDataOfLocalStorage[index]['id'] = currentId;
+    localStorage.setItem("detail", JSON.stringify(getDataOfLocalStorage))
+    isEdit = false;
     
+}
+
+
+let onDelete = (td,id) =>{
+    row = td.parentElement.parentElement;
+    document.getElementById("basic-form-list").deleteRow(row.rowIndex);
+    let dataOfLocal = JSON.parse(localStorage.getItem("detail"));
+    let newid = id - 1;
+    dataOfLocal.splice(newid,  1);
+    // delete dataOfLocal[newid]; 
+    localStorage.setItem("detail", JSON.stringify(dataOfLocal))
+
+}
+
+
+const validateData = (getformData) => {
+    // console.log(getformData.gender,"jshaj");
+    let isValidate = true
+    if (getformData.firstname === "") {
+        isValidate = false
+        document.getElementById("firstname").classList.add("showError");
+    }
+    if (getformData.lastname === "") {
+        isValidate = false
+        document.getElementById("lastname").classList.add("showError");
+    }
+    if (getformData.gender == null) {
+        isValidate = false
+        document.getElementById("gendervalidate").classList.add("showError");
+    }
+    if (getformData.hobbie === "") {
+        isValidate = false
+        document.getElementById("hobbie").classList.add("showError");
+    }
+    if (getformData.address === "") {
+        isValidate = false
+        document.getElementById("message").classList.add("showError");
+    }
+    return isValidate
+}
+
+
+const changeInput = (event) => {
+    let inputElement = event.target;
+    let id= ''
+    if (inputElement.name === 'fname') {
+        id = 'firstname'
+    }
+    else if (inputElement.name === 'lname') {
+        id= 'lastname'
+    }
+    else if (inputElement.name === 'gender') {
+        id = "gendervalidate"
+    }
+    else if (inputElement.name === 'hoby') {
+        id= 'hobbie'
+    }
+    else  if (inputElement.name === 'address') {
+    id = "message"
+    }
+    if (inputElement.value != "") {
+        document.getElementById(id).classList.remove("showError");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let  insertRecordIntoTable = () => {
+
 // }
 
 
@@ -240,82 +360,3 @@ let displayDataintoTable = (fromDataOfLocalStorage) => {
 // }
 
 
-// const errorRemove = (id) => {
-//     document.getElementById(id).classList.remove("showError")
-// }
-
-
-// let editRecords = (formData) => {
-//     console.log(formData,"newone");
-//     getFormDetails[index] = formData;
-//     // getFormDetails[index].firstname = formData.firstname;
-//     localStorage.setItem('detail', JSON.stringify(formData))
-//     // console.log(getFormDetails);
-//     // const cells= selectedRow.cells
-//     // cells[0].innerHTML = getFormDetails[indexValue].firstname;
-//     // // console.log(getformdata.firstname,"zoom");
-//     // cells[1].innerHTML = getFormDetails[indexValue].lastname;
-//     // cells[2].innerHTML = getFormDetails[indexValue].gender;
-//     // cells[3].innerHTML = getFormDetails[indexValue].hobbie;
-//     // cells[4].innerHTML = getFormDetails[indexValue].address;
-//     isEdit = false;
-    
-// }
-
-
-// let onDelete = (td) =>{
-//     row = td.parentElement.parentElement;
-//     document.getElementById("basic-form-list").deleteRow(row.rowIndex);
-//     localStorage.clear()
-// }
-
-
-const validateData = (getformData) => {
-    // console.log(getformData.gender,"jshaj");
-    let isValidate = true
-    if (getformData.firstname === "") {
-        isValidate = false
-        document.getElementById("firstname").classList.add("showError");
-    }
-    if (getformData.lastname === "") {
-        isValidate = false
-        document.getElementById("lastname").classList.add("showError");
-    }
-    if (getformData.gender == null) {
-        isValidate = false
-        document.getElementById("gendervalidate").classList.add("showError");
-    }
-    if (getformData.hobbie === "") {
-        isValidate = false
-        document.getElementById("hobbie").classList.add("showError");
-    }
-    if (getformData.address === "") {
-        isValidate = false
-        document.getElementById("message").classList.add("showError");
-    }
-    return isValidate
-}
-
-
-const changeInput = (event) => {
-    let inputElement = event.target;
-    let id= ''
-    if (inputElement.name === 'fname') {
-        id = 'firstname'
-    }
-    else if (inputElement.name === 'lname') {
-        id= 'lastname'
-    }
-    else if (inputElement.name === 'gender') {
-        id = "gendervalidate"
-    }
-    else if (inputElement.name === 'hoby') {
-        id= 'hobbie'
-    }
-    else  if (inputElement.name === 'address') {
-    id = "message"
-    }
-    if (inputElement.value != "") {
-        document.getElementById(id).classList.remove("showError");
-    }
-}
