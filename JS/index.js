@@ -1,20 +1,33 @@
-let getFormDetails = JSON.parse(localStorage.getItem("detail"));
-let isEdit = false;
+// let getFormDetails = JSON.parse(localStorage.getItem("detail"));
+// let isEdit = false;
 
-let ids = 0;
+// let ids = 0;
+let insertRecordsIntoLocalStorage = []
 
 
-// let onLoad = () => {
-//     insertNewRecord();
+
+// let displayLocalStorageData = () => {
+  
+//     console.log(getDataFromLocalStorage, "fromDataOfLocalStorage d")
+//     return getDataFromLocalStorage;
 // }
 
+let onLoad = () => {
+    let getDataFromLocalStorage = JSON.parse(localStorage.getItem("detail"));
+    if (!getDataFromLocalStorage == "") {
+        console.log(getDataFromLocalStorage, "new data");
+        for (let i = 0; i < getDataFromLocalStorage.length; i++) {
+            displayDataintoTable(getDataFromLocalStorage[i])
+            console.log(getDataFromLocalStorage, "thired");
+            insertRecordsIntoLocalStorage.push(getDataFromLocalStorage[i])
+        }
+    }
+}
 
-let insertRecordsIntoLocalStorage = []
-let showLocalStorageData = []
-let editLocalStorageData = []
-let updateLocalStorageData = []
 
-
+// let showLocalStorageData = []
+// let editLocalStorageData = []
+// let updateLocalStorageData = []
 
 
 // console.log(getFormDetails[5].id,"nn");
@@ -24,26 +37,40 @@ let updateLocalStorageData = []
 //     lookup.push(getformData[id])
 // }
 
+// debugger;
+
 const onSubmit = (event) => {
     event.preventDefault();
     const getformData = readFormData();
-    console.log(getformData, "data");
+    console.log(getformData);
     const isValidated = validateData(getformData)
     if (isValidated) {
-        if (!isEdit) {
-            // displayLocalStorageData(getformData);
-            insertRecord()
-        } else {
-            editRecords(getformData);
-        }
+        insertData(getformData);
+        // onLoad();
+        // let localStorageData = displayLocalStorageData();
+        // displayDataintoTable();
+        // storeRecordsIntoLocalStorage();
         event.target.reset(); 
     }
+    // event.preventDefault();
+    // const getformData = readFormData();
+    // console.log(getformData, "data");
+    // const isValidated = validateData(getformData)
+    // if (isValidated) {
+    //     if (!isEdit) {
+    //         // displayLocalStorageData(getformData);
+    //         insertRecord()
+    //     } else {
+    //         editRecords(getformData);
+    //     }
+    //     event.target.reset(); 
+    // }
 }
 
 
-const resetForm = () => {
-    document.getElementById("basic-form").reset();
-}
+// const resetForm = () => {
+//     document.getElementById("basic-form").reset();
+// }
 
 
 const readFormData = () => {
@@ -54,57 +81,96 @@ const readFormData = () => {
             hobbies.push(document.getElementById(hoby[i].id).value)
         }
     }
-    const formData = {
-        // id : id + 1,
+    const formData1 = {
         firstname: document.getElementById("fname").value,
         lastname: document.getElementById("lname").value,
         gender: (document.querySelector('input[name="gender"]:checked') || {}).value,
         hobbie: hobbies.toString(),
         address: document.getElementById("address").value,
     };
+    // consolelog(formData1)
     // console.log(formData,"check valuse");
-
-    return formData;
+    
+    return formData1;
 }
 
 
-const displayLocalStorageData = (formData) => {
-    let formdetails = [];
-        // console.log(formData,"log");
-        let storage = JSON.parse(localStorage.getItem("detail"));
-        // console.log('test', storage);
-        if (formData == null) {
-            console.log("please fill data");
-        } else {
-            if (storage === null) {
-                formdetails.push(formData)
-                // console.log(formdetails);
-                localStorage.setItem("detail", JSON.stringify(formdetails))
-                
-            } else {
-                // console.log(formdetails, storage,"formdetails");
-                formdetails = storage;
-                formdetails.push(formData)
-                // console.log(formdetails,"got");
-                localStorage.setItem("detail", JSON.stringify(formdetails))
-            }
-            // insertNewRecord()
-            // window.location.reload(true);
-        }
-}
 
-
-let insertRecord = () => {
-
-    let getFillupFormData = readFormData();
+let insertData = (getformData) => {
+    // let getFillupFormData = readFormData();
+    console.log(getformData, "old fromdata")
+    // updateGetFillupFormData = getFillupFormData
+    let ids = JSON.parse(localStorage.getItem("detail"));
+    if (ids == null) {
+        ids = 0;
+    } else {
+        ids = JSON.parse(localStorage.getItem("detail")).length
+    }
+    // console.log(localID,"local_id");
     ids += 1;
-    getFillupFormData["id"] = ids;
-    console.log(getFillupFormData,"getFillupFormData");
-    insertRecordsIntoLocalStorage.push(getFillupFormData)
+    getformData["id"] = ids;
+    console.log(insertRecordsIntoLocalStorage,'first');
+    insertRecordsIntoLocalStorage.push(getformData);
+    console.log(insertRecordsIntoLocalStorage,'secoond');
+    localStorage.setItem("detail", JSON.stringify(insertRecordsIntoLocalStorage))
+    // storeRecordsIntoLocalStorage();
 }
-    console.log(insertRecordsIntoLocalStorage,"insertRecordsIntoLocalStorage");
-// let newdata = insertRecord();
-// console.log(newdata,"how");
+
+// console.log(insertRecordsIntoLocalStorage, "insertRecordsIntoLocalStorage");
+
+
+let displayDataintoTable = (fromDataOfLocalStorage) => {
+    // console.log(fromDataOfLocalStorage[0],"wow i get data");
+        let table = document.getElementById("basic-form-list").getElementsByTagName("tbody")[0]
+        let newRow = table.insertRow();
+        let idcell = newRow.insertCell(0);
+        idcell.innerHTML = fromDataOfLocalStorage.id
+        let firstnamecell = newRow.insertCell(1);
+        firstnamecell.innerHTML = fromDataOfLocalStorage.firstname
+        let lastnamecell = newRow.insertCell(2);
+        lastnamecell.innerHTML = fromDataOfLocalStorage.lastname
+        let gendercell = newRow.insertCell(3);
+        gendercell.innerHTML = fromDataOfLocalStorage.gender
+        let hobbiecell = newRow.insertCell(4);
+        hobbiecell.innerHTML = fromDataOfLocalStorage.hobbie
+        let addresscell = newRow.insertCell(5);
+        addresscell.innerHTML = fromDataOfLocalStorage.address
+        let updatecell = newRow.insertCell(6);
+        updatecell.innerHTML = `<button onClick="onEdit(this)" class="btn" href="">Edit</button><button onClick="onDelete(this)"class="btn1" href="">Delete</button>`;
+}
+
+
+// let  insertRecordIntoTable = () => {
+    
+// }
+
+
+
+// const displayLocalStorageData = (formData) => {
+//     let formdetails = [];
+//         // console.log(formData,"log");
+//         let storage = JSON.parse(localStorage.getItem("detail"));
+//         // console.log('test', storage);
+//         if (formData == null) {
+//             console.log("please fill data");
+//         } else {
+//             if (storage === null) {
+//                 formdetails.push(formData)
+//                 // console.log(formdetails);
+//                 localStorage.setItem("detail", JSON.stringify(formdetails))
+//             } else {
+//                 // console.log(formdetails, storage,"formdetails");
+//                 formdetails = storage;
+//                 formdetails.push(formData)
+//                 // console.log(formdetails,"got");
+//                 localStorage.setItem("detail", JSON.stringify(formdetails))
+//             }
+//             // insertNewRecord()
+//             // window.location.reload(true);
+//         }
+// }
+
+
 
 
 // let insertNewRecord = () => {
@@ -140,68 +206,68 @@ let insertRecord = () => {
 
 
 
-let onEdit = (td) => {
-    // index = i;
-    // console.log(index,"index");
-    isEdit = true;
-    selectedRow = td.parentElement.parentElement;
-    let cell = selectedRow.cells
-    document.getElementById("fname").value = cell[0].innerHTML;
-    if (!cell[0].innerHTML == "") {
-        errorRemove("firstname")
-    } 
-    document.getElementById("lname").value = cell[1].innerHTML;
-    if (!cell[1].innerHTML == "") {
-        errorRemove("lastname")
-    } 
-    let gender_item = (cell[2].innerHTML)
-    // console.log(gender_item);
-    document.getElementById(gender_item).checked = true
-    if (!cell[2].innerHTML == "") {
-        errorRemove("gendervalidate")
-    } 
-    let hoby_item =(cell[3].innerHTML.split(','))
-    for (i = 0; i < hoby_item.length; i++){
-        document.getElementById(hoby_item[i]).checked = true;
-    }
-    if (!cell[3].innerHTML == "") {
-        errorRemove("hobbie")
-    } 
-    document.getElementById("address").value = selectedRow.cells[4].innerHTML;
-    if (!cell[4].innerHTML == "") {
-        errorRemove("message")
-    } 
-}
+// let onEdit = (td) => {
+//     // index = i;
+//     // console.log(index,"index");
+//     isEdit = true;
+//     selectedRow = td.parentElement.parentElement;
+//     let cell = selectedRow.cells
+//     document.getElementById("fname").value = cell[0].innerHTML;
+//     if (!cell[0].innerHTML == "") {
+//         errorRemove("firstname")
+//     } 
+//     document.getElementById("lname").value = cell[1].innerHTML;
+//     if (!cell[1].innerHTML == "") {
+//         errorRemove("lastname")
+//     } 
+//     let gender_item = (cell[2].innerHTML)
+//     // console.log(gender_item);
+//     document.getElementById(gender_item).checked = true
+//     if (!cell[2].innerHTML == "") {
+//         errorRemove("gendervalidate")
+//     } 
+//     let hoby_item =(cell[3].innerHTML.split(','))
+//     for (i = 0; i < hoby_item.length; i++){
+//         document.getElementById(hoby_item[i]).checked = true;
+//     }
+//     if (!cell[3].innerHTML == "") {
+//         errorRemove("hobbie")
+//     } 
+//     document.getElementById("address").value = selectedRow.cells[4].innerHTML;
+//     if (!cell[4].innerHTML == "") {
+//         errorRemove("message")
+//     } 
+// }
 
 
-const errorRemove = (id) => {
-    document.getElementById(id).classList.remove("showError")
-}
+// const errorRemove = (id) => {
+//     document.getElementById(id).classList.remove("showError")
+// }
 
 
-let editRecords = (formData) => {
-    console.log(formData,"newone");
-    getFormDetails[index] = formData;
-    // getFormDetails[index].firstname = formData.firstname;
-    localStorage.setItem('detail', JSON.stringify(formData))
-    // console.log(getFormDetails);
-    // const cells= selectedRow.cells
-    // cells[0].innerHTML = getFormDetails[indexValue].firstname;
-    // // console.log(getformdata.firstname,"zoom");
-    // cells[1].innerHTML = getFormDetails[indexValue].lastname;
-    // cells[2].innerHTML = getFormDetails[indexValue].gender;
-    // cells[3].innerHTML = getFormDetails[indexValue].hobbie;
-    // cells[4].innerHTML = getFormDetails[indexValue].address;
-    isEdit = false;
+// let editRecords = (formData) => {
+//     console.log(formData,"newone");
+//     getFormDetails[index] = formData;
+//     // getFormDetails[index].firstname = formData.firstname;
+//     localStorage.setItem('detail', JSON.stringify(formData))
+//     // console.log(getFormDetails);
+//     // const cells= selectedRow.cells
+//     // cells[0].innerHTML = getFormDetails[indexValue].firstname;
+//     // // console.log(getformdata.firstname,"zoom");
+//     // cells[1].innerHTML = getFormDetails[indexValue].lastname;
+//     // cells[2].innerHTML = getFormDetails[indexValue].gender;
+//     // cells[3].innerHTML = getFormDetails[indexValue].hobbie;
+//     // cells[4].innerHTML = getFormDetails[indexValue].address;
+//     isEdit = false;
     
-}
+// }
 
 
-let onDelete = (td) =>{
-    row = td.parentElement.parentElement;
-    document.getElementById("basic-form-list").deleteRow(row.rowIndex);
-    localStorage.clear()
-}
+// let onDelete = (td) =>{
+//     row = td.parentElement.parentElement;
+//     document.getElementById("basic-form-list").deleteRow(row.rowIndex);
+//     localStorage.clear()
+// }
 
 
 const validateData = (getformData) => {
