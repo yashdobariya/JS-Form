@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/index.css">
-    <link rel="stylesheet" href="./style/responsive.css">
+    <!-- <link rel="stylesheet" href="./style/index.css"> -->
+    <link rel="stylesheet" href="style/app.css">
     <title>Js Form</title>
 </head>
 
@@ -15,61 +15,64 @@
 
         <section class="form-section">
             <div class="form-wrap">
-                <form id="basic-form" onsubmit="onSubmit(event)" class="basic-form" autocomplete="off">
-                    <h1 class="text-left">Basic Form</h1>
+                <h1 class="p-20">Basic Form</h1>
+                <form id="basic-form" onsubmit="onSubmit(event)" class="basic-form">
 
                     <div class="form-item">
-                        <label for="fname">First Name:</label>
-                        <input type="text" class="input_item" name="fname" oninput="changeInput(event)" id="fname"
+                        <label for="fname">First Name</label>
+                        <input type="text" class="input_item" name="fname"
+                            oninput="checkInputvalidation(value,'firstname')" id="fname"
                             placeholder="Enter your first name" />
-                        <p class="error left" id="firstname"> Please fill the field</p>
+                        <p class="error left" id="firstname"> Please fill first name field</p>
                     </div>
 
                     <div class="form-item">
-                        <label for="lname">Last Name:</label>
-                        <input type="text" class="input_item" name="lname" id="lname" oninput="changeInput(event)"
-                            placeholder="Enter your last name" />
-                        <p class="error left" id="lastname">Please fill the field </p>
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="input_item" name="lname" id="lname"
+                            oninput="checkInputvalidation(value,'lastname')" placeholder="Enter your last name" />
+                        <p class="error left" id="lastname">Please fill last name field </p>
                     </div>
 
                     <div class="form-item" name="ceh">
-                        <label>Gender</label>
-                        <label><input type="radio" class="input_box gen" oninput="changeInput(event)" name="gender"
-                                id="male" value="male" />
+                        <label class="d-inline">Gender</label>
+                        <label class="d-inline"><input type="radio" class="input_box gen"
+                                oninput="checkInputvalidation(value,'gendervalidate')" name="gender" id="male"
+                                value="male" />
                             Male</label>
 
-                        <label><input type="radio" class="input_box gen" name="gender" id="female"
-                                oninput="changeInput(event)" value="female" />
+                        <label class="d-inline"><input type="radio" class="input_box gen" name="gender" id="female"
+                                oninput="checkInputvalidation(value,'gendervalidate')" value="female" />
                             Female</label>
-                        <p id="gendervalidate" class="error left">Please fill the field </p>
+                        <p id="gendervalidate" class="error left">Please choose your gender </p>
                     </div>
 
                     <div class="form-item">
-                        <label>Hobbie</label>
-                        <label><input type="checkbox" name="hoby" id="music" na class="input_box check"
-                                oninput="changeInput(event)" value="music" />
+                        <label class="d-inline">Hobbie</label>
+                        <label class="d-inline"><input type="checkbox" name="hoby" id="music" na class="input_box check"
+                                oninput="checkInputvalidation(value,'hobbie')" value="music" />
                             Music</label>
 
-                        <label><input class="input_box check" name="hoby" type="checkbox" id="cricket"
-                                oninput="changeInput(event)" value="cricket" />
+                        <label class="ml"><input class="input_box check" name="hoby" type="checkbox" id="cricket"
+                                oninput="checkInputvalidation(value,'hobbie')" value="cricket" />
                             Cricket</label>
 
-                        <label><input class="input_box check" name="hoby" type="checkbox" id="gyming"
-                                oninput="changeInput(event)" value="gyming" />
+                        <label class="ml"><input class="input_box check" name="hoby" type="checkbox" id="gyming"
+                                oninput="checkInputvalidation(value,'hobbie')" value="gyming" />
                             Gyming</label>
-                        <p id="hobbie" class="error left"> Please fill the field </p>
+                        <p id="hobbie" class="error left"> Please choose your hobbie </p>
                     </div>
 
                     <div class="form-item">
                         <label style="vertical-align: top;margin-right: 20px;">Address</label>
-                        <textarea rows="4" cols="30" class="input_item" name="address" id="address"
-                            oninput="changeInput(event)" placeholder="Enter Address here..."></textarea>
-                        <p id="message" class="left error"> Please fill the field </p>
+                        <textarea rows="4" cols="30" class="input_item" maxlength="50" name="address" id="address"
+                            oninput="checkInputvalidation(value,'message')"
+                            placeholder="Enter Address here..."></textarea>
+                        <p id="message" class="left error"> Please fill your address </p>
                     </div>
 
                     <div class="form-item">
                         <button type="submit" value="Submit" class="btn">Submit</button>
-                        <button type="button" onclick="resetForm()" value="Reset" class="delbtn">Reset</button>
+                        <button type="button" onclick="resetForm()" value="Reset" class="btn delbtn">Reset</button>
                     </div>
                 </form>
             </div>
@@ -78,7 +81,7 @@
         <section class="table-section">
             <div class="table-wrap">
                 <table class="form-table" id="basic-form-list">
-                    <caption> Basic Form Table</caption>
+                    <caption class="p-20"> Basic Form Table</caption>
                     <tr>
                         <th>ID</th>
                         <th>First Name</th>

@@ -1,0 +1,99 @@
+main{
+
+    .form-wrap{
+        padding: 80px;
+        background-color: $grey;
+        
+        h1{
+            text-align: center;
+            margin-top: -50px;
+            font-size: 40px;
+        }
+        
+        form{
+            width: 70%;
+            margin: 0 auto;
+            background-color: $black;
+            border-radius: 10px;
+            padding: 50px;
+            color: $white;
+    
+            .form-item{
+                padding: 10px;
+        
+                label{
+                    display:flex ;
+                    font-size: 22px;
+                    margin-bottom: 10px;
+
+                    &.d-inline{
+                        display: inline;
+                        
+                        .input_box {
+                            height: 20px;
+                            width: 30px;
+                            margin-left: 20px;
+                        }
+                    }
+
+                    &.ml{
+                        margin: 0px 0px 0px 100px;
+                        font-size: 21px;
+                        
+
+                        .input_box {
+                            height: 20px;
+                            width: 35px;
+                        }
+                    }
+                }
+        
+                .input_item{
+                    width: 100%;
+                    padding: 10px;
+                    font-size: 16px;
+                    outline: none;
+                    resize:vertical;
+                }
+
+                .input_box {
+                        height: 25px;
+                        width: 40px;
+                        cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .table-wrap{
+        background-color: $grey;
+        padding: 50px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            
+            caption {
+                font-size: 40px;
+                font-weight: 600;
+                
+            }
+
+            th {
+                border: 2px solid $black;
+                text-align: center;
+                padding: 20px;
+                background-color: $black;
+                color: $white;
+                font-size: 20px;
+            }
+            
+            td {
+                border: 2px solid $black;
+                text-align: center;
+                padding: 20px;
+                font-size: 18px;
+            }
+        }
+    }
+}

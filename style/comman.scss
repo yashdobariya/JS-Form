@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: poppins_Regular;
+}
+
+.error {
+    color: $denger;
+    visibility: hidden;
+}
+
+.showError {
+    visibility: unset ;
+;
+}
+
+.btn {
+    padding: 10px 30px;
+    border: none;
+    background: $success;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    color: $white;
+
+    &.delbtn{
+    background: $denger;
+    }
+}
+
+.p-20{
+ padding: 20px;
+}

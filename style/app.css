@@ -1,0 +1,97 @@
+@font-face {
+  font-family: poppins_Regular;
+  src: url("../fonts/Poppins-Regular.ttf"); }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  font-family: poppins_Regular; }
+
+.error {
+  color: #ff0000;
+  visibility: hidden; }
+
+.showError {
+  visibility: unset; }
+
+.btn {
+  padding: 10px 30px;
+  border: none;
+  background: #008000;
+  font-size: 16px;
+  margin: 4px;
+  cursor: pointer;
+  color: #ffffff; }
+  .btn.delbtn {
+    background: #ff0000; }
+
+.p-20 {
+  padding: 20px; }
+
+main .form-wrap {
+  padding: 80px;
+  background-color: #DDC6B6; }
+  main .form-wrap h1 {
+    text-align: center;
+    margin-top: -50px;
+    font-size: 40px; }
+  main .form-wrap form {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #262223;
+    border-radius: 10px;
+    padding: 50px;
+    color: #ffffff; }
+    main .form-wrap form .form-item {
+      padding: 10px; }
+      main .form-wrap form .form-item label {
+        display: flex;
+        font-size: 22px;
+        margin-bottom: 10px; }
+        main .form-wrap form .form-item label.d-inline {
+          display: inline; }
+          main .form-wrap form .form-item label.d-inline .input_box {
+            height: 20px;
+            width: 30px;
+            margin-left: 20px; }
+        main .form-wrap form .form-item label.ml {
+          margin: 0px 0px 0px 100px;
+          font-size: 21px; }
+          main .form-wrap form .form-item label.ml .input_box {
+            height: 20px;
+            width: 35px; }
+      main .form-wrap form .form-item .input_item {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        outline: none;
+        resize: vertical; }
+      main .form-wrap form .form-item .input_box {
+        height: 25px;
+        width: 40px;
+        cursor: pointer; }
+main .table-wrap {
+  background-color: #DDC6B6;
+  padding: 50px; }
+  main .table-wrap table {
+    width: 100%;
+    border-collapse: collapse; }
+    main .table-wrap table caption {
+      font-size: 40px;
+      font-weight: 600; }
+    main .table-wrap table th {
+      border: 2px solid #262223;
+      text-align: center;
+      padding: 20px;
+      background-color: #262223;
+      color: #ffffff;
+      font-size: 20px; }
+    main .table-wrap table td {
+      border: 2px solid #262223;
+      text-align: center;
+      padding: 20px;
+      font-size: 18px; }
+
+/*# sourceMappingURL=app.css.map */
